@@ -7,7 +7,8 @@ returns `402 Payment Required` with a signed quote, and the same request with a
 
 | | |
 |---|---|
-| Endpoint | `http://45.127.35.121:8080/v1/audit?url=https://example.com` |
+| Endpoint | `https://cian-x402.netlify.app/v1/audit?url=https://example.com` |
+| Also reachable | `http://45.127.35.121:8080/v1/audit?url=https://example.com` (the origin, plain HTTP, no DNS) |
 | Price | 0.01 USDC per call (`10000` atomic, 6 decimals) |
 | Network | `eip155:8453` (Base mainnet), scheme `exact` |
 | Asset | `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` (USDC) |
@@ -37,7 +38,7 @@ Private, loopback and link-local targets are refused.
 ## Try it
 
 ```bash
-curl -i 'http://45.127.35.121:8080/v1/audit?url=https://example.com'
+curl -i 'https://cian-x402.netlify.app/v1/audit?url=https://example.com'
 ```
 
 returns `HTTP/1.1 402` with a complete x402 v2 body, including an
@@ -75,8 +76,12 @@ body. Sign the `accepts` entry and retry with `PAYMENT-SIGNATURE`.
 
 ## Settlement
 
-One payment of 0.01 USDC on Base settled against this endpoint:
-tx `0x2a53912f815d9d00f524d2c593e94f7494c2c80156da5fd8d67f4ffc9a8fee95`.
+Settlement is verified end to end: one 0.01 USDC payment on Base was made from a
+wallet this operator controls to this endpoint's `payTo`, and the audit was
+returned. tx `0x2a53912f815d9d00f524d2c593e94f7494c2c80156da5fd8d67f4ffc9a8fee95`.
+
+That is a self-test, not a customer. **No third-party paid call has happened
+yet**, and no listing of this service claims otherwise.
 
 ## Author
 
