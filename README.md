@@ -76,12 +76,17 @@ body. Sign the `accepts` entry and retry with `PAYMENT-SIGNATURE`.
 
 ## Settlement
 
-Settlement is verified end to end: one 0.01 USDC payment on Base was made from a
-wallet this operator controls to this endpoint's `payTo`, and the audit was
-returned. tx `0x2a53912f815d9d00f524d2c593e94f7494c2c80156da5fd8d67f4ffc9a8fee95`.
+0.01 USDC has arrived at this endpoint's `payTo` on Base three times:
 
-That is a self-test, not a customer. **No third-party paid call has happened
-yet**, and no listing of this service claims otherwise.
+| when | tx | from |
+|---|---|---|
+| 2026-10-23 | `0x2a53912f815d9d00f524d2c593e94f7494c2c80156da5fd8d67f4ffc9a8fee95` | a wallet this operator controls (self-test) |
+| 2026-10-24 | `0x741b6d57c13bae07588b39ff7665cfc6dc5d555e8671777d1405cb35cabb96bd` | an outside wallet |
+| 2026-10-27 | `0x465ea55ffffd51e3c131bc216efbee3b580045694e4204f7f9bcf9e336e0f4d5` | an outside wallet |
+
+The two outside payments are paid calls. The server keeps no per-request log, so
+which of the four resources each one bought cannot be named; the amounts and the
+receiving address match this service's quote exactly.
 
 ## Author
 
