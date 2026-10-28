@@ -7,13 +7,27 @@ returns `402 Payment Required` with a signed quote, and the same request with a
 
 | | |
 |---|---|
-| Endpoint | `https://cian-x402.netlify.app/v1/audit?url=https://example.com` |
-| Also reachable | `http://45.127.35.121:8080/v1/audit?url=https://example.com` (the origin, plain HTTP, no DNS) |
+| Endpoint | `https://cian-x402.netlify.app/v1/audit/example.com` |
+| Origin | `http://45.127.35.121:8080/v1/audit/example.com` (plain HTTP on the box itself; not a listing URL, because directories upgrade `http` to `https`) |
 | Price | 0.01 USDC per call (`10000` atomic, 6 decimals) |
 | Network | `eip155:8453` (Base mainnet), scheme `exact` |
 | Asset | `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` (USDC) |
 | payTo | `0x7373E88368378052EB5a449d2eBC95aD7E5f2bEF` |
 | Discovery | `/.well-known/x402`, `/.well-known/x402.json`, `/openapi.json` |
+
+## Calling it
+
+The URL to audit is the last path segment, so the endpoint needs no query string.
+
+| target | call |
+|---|---|
+| a bare hostname | `https://cian-x402.netlify.app/v1/audit/example.com` (means `https://example.com`) |
+| a URL with its own scheme | `https://cian-x402.netlify.app/v1/audit/https%3A%2F%2Fexample.com%2Fpricing` (percent-encoded) |
+| the query form, still accepted | `https://cian-x402.netlify.app/v1/audit?url=https://example.com` |
+
+The path form is the one to use: it is what a directory can list, and the
+`resource.url` in the 402 quote is the URL you actually called, so a client that
+verifies the resource it paid for accepts the payment.
 
 ## What one call returns
 
@@ -38,7 +52,7 @@ Private, loopback and link-local targets are refused.
 ## Try it
 
 ```bash
-curl -i 'https://cian-x402.netlify.app/v1/audit?url=https://example.com'
+curl -i https://cian-x402.netlify.app/v1/audit/example.com
 ```
 
 returns `HTTP/1.1 402` with a complete x402 v2 body, including an
