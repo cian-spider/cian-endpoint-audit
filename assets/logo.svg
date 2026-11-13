@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-labelledby="t d">
+  <title id="t">Cian Endpoint Audit</title>
+  <desc id="d">A rounded blue square holding a white ring, a downward trace, and a check mark: an endpoint checked end to end.</desc>
+  <rect width="512" height="512" rx="112" fill="#0052FF"/>
+  <circle cx="256" cy="256" r="152" fill="none" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="18"/>
+  <path d="M120 300h64l32-64 40 112 40-72 32 24h64" fill="none" stroke="#8FD3FF" stroke-width="20"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M196 206l40 40 84-88" fill="none" stroke="#FFFFFF" stroke-width="30"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
